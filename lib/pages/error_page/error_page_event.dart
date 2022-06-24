@@ -7,3 +7,8 @@ abstract class ErrorPageEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class ErrorMessage extends ErrorPageEvent {
+  final String errorMessage;
+  const ErrorMessage({this.errorMessage = "Something goes wrong"});
+}

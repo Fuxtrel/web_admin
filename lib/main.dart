@@ -7,9 +7,9 @@ void main() {
     MaterialApp(
       home: const WelcomePage(),
       routes: <String, WidgetBuilder>{
-        '/welcome': (BuildContext context) => const WelcomePage(),
+        '/admin': (BuildContext context) => const WelcomePage(),
         // '/home': (BuildContext context) => MyPage(title: 'page B'),
-        '/error': (BuildContext context) => const ErrorPage(),
+        '/admin/error': (BuildContext context) => const ErrorPage(),
       },
     ),
   );

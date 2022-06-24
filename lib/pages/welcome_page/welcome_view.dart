@@ -5,6 +5,8 @@ import 'package:web_admin/colors.dart';
 import 'package:web_admin/generated/assets.dart';
 import 'package:web_admin/pages/welcome_page/welcome_bloc.dart';
 
+import '../error_page/error_page_bloc.dart';
+
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
   final _title = "Welcome to Flutter admin panel";
@@ -12,8 +14,15 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WelcomeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => WelcomeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ErrorPageBloc(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),
@@ -59,13 +68,26 @@ class WelcomePage extends StatelessWidget {
         ),
         floatingActionButton: BlocBuilder<WelcomeBloc, WelcomeState>(
           builder: (context, state) {
-            return FloatingActionButton(
-              onPressed: () {
-                context.read<WelcomeBloc>().add(const ButtonPush());
-                Navigator.of(context).pushReplacementNamed('/error');
+            return BlocBuilder<ErrorPageBloc, ErrorPageState>(
+              builder: (context, state_) {
+                return FloatingActionButton(
+                  onPressed: () async {
+                    context.read<WelcomeBloc>().add(const ButtonPush());
+                    context.read<ErrorPageBloc>().add(
+                          const ErrorMessage(
+                            errorMessage: "Don't work anything",
+                          ),
+                        );
+                    Navigator.pushNamed(
+                      context,
+                      '/admin/error',
+                      arguments: state_.copyWith(errorMessage: "ABOBA"),
+                    );
+                  },
+                  tooltip: state.isFirstTimeOpened ? 'Increment' : 'Decrement',
+                  child: const Icon(Icons.add),
+                );
               },
-              tooltip: state.isFirstTimeOpened ? 'Increment' : 'Decrement',
-              child: const Icon(Icons.add),
             );
           },
         ),
