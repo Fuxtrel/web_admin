@@ -1,9 +1,22 @@
+// class Pages {
+//   static final Pages _instance = Pages._internal();
+//   Map<String, Widget> pages = {'/admin': const WelcomePage(), '/admin/error': const ErrorPage()};
+//
+//   factory Pages() {
+//     return _instance;
+//   }
+//
+//   Pages._internal() {
+//     // initialization logic
+//   }
+// }
+
 enum Pages {
-  welcome(true),
-  home(false),
-  error(false);
+  welcomePage("/welcome"),
+  errorPage("/error"),
+  dataTablePage("/dataTable");
 
-  final bool isChosen;
+  final String routeName;
 
-  const Pages(this.isChosen);
+  const Pages(this.routeName);
 }

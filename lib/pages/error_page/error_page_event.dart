@@ -8,7 +8,14 @@ abstract class ErrorPageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ErrorMessage extends ErrorPageEvent {
-  final String errorMessage;
-  const ErrorMessage({this.errorMessage = "Something goes wrong"});
+class ErrorPageInit extends ErrorPageEvent {
+  final ErrorPageState errorPageState;
+
+  const ErrorPageInit({required this.errorPageState});
+}
+
+class ErrorPagePushButton extends ErrorPageEvent {
+  final ErrorPageState errorPageState;
+
+  const ErrorPagePushButton({required this.errorPageState});
 }

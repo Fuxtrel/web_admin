@@ -1,22 +1,28 @@
 part of 'error_page_bloc.dart';
 
-class ErrorPageState extends Equatable {
-  final String errorMessage;
-
-  const ErrorPageState({
-    this.errorMessage = "Error",
-  });
+@immutable
+abstract class ErrorPageState extends Equatable {
+  late final String errorMessage;
+  late final Color errorColor;
+  late final String helpUrl;
 
   ErrorPageState copyWith({
     String? errorMessage,
-  }) {
-    return ErrorPageState(
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
+    Color? errorColor,
+    String? helpUrl,
+  });
+
+  ErrorPageState fromState({required ErrorPageState state});
+
+  @override
+  String toString() {
+    return 'ErrorPageState{errorMessage: $errorMessage, errorColor: $errorColor, helpUrl: $helpUrl}';
   }
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         errorMessage,
+        errorColor,
+        helpUrl,
       ];
 }
